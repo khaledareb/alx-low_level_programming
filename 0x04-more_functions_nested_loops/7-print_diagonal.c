@@ -1,7 +1,5 @@
 #include "main.h"
 
-#include "holberton.h"
-
 /**
  * print_diagonal - draw a diagonal line
  * @n: number of times the '\' char is printed
