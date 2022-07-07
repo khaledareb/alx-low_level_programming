@@ -1,28 +1,41 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
- * print_square - print a square
- * @size: size of square
- * Description: Can only use _putchar to print. Use '#' to print square.
- */
-void print_square(int size)
+  * main - Prints a Fizz Buzz program
+  *
+  * Return: Always 0 (Success)
+  */
+int main(void)
 {
-	int x, y;
+	int x;
 
-	y = 0;
-
-	if (size < 1)
-		_putchar('\n');
-
-	while (y < size)
+	for (x = 1; x <= 100; x++)
 	{
-		x = 0;
-		while (x < size)
+		if ((x % 3 == 0) && (x % 5 == 0))
 		{
-			_putchar('#');
-			x++;
+			printf("FizzBuzz");
 		}
-		_putchar('\n');
-		y++;
+		else if (x % 3 == 0)
+		{
+			printf("Fizz");
+		}
+		else if (x % 5 == 0)
+		{
+			printf("Buzz");
+		}
+		else
+		{
+			printf("%d", x);
+		}
+
+		if (x != 100)
+		{
+			printf(" ");
+		}
 	}
+
+	printf("\n");
+
+	return (0);
 }
