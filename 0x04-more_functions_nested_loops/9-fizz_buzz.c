@@ -26,6 +26,3 @@ void print_square(int size)
 		y++;
 	}
 }
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
