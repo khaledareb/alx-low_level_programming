@@ -2,39 +2,35 @@
 #include <stdio.h>
 
 /**
- * reverse_listint - Reverse a `listint_t` linked list
- * @head: double pointer to head
- * Description: Limited to going through loop only once.
- * Not allowed to use `malloc` or `free` or arrays
- * Can only declare a max of 2 variables.
- * Return: pointer to first node of reversed list
+ * print_listint_safe - Print a `listint_t` linked list including mem addresses
+ * @head: head of linked list
+ * Description: Go through the list only once.
+ * Return: number of nodes in list. If fails, exit with status 98.
  */
-listint_t *reverse_listint(listint_t **head)
+size_t print_listint_safe(const listint_t *head)
 {
-	listint_t *hold;
-	listint_t *current;
+	const listint_t *current;
+	size_t count;
+	const listint_t *hold;
 
-	if (*head == NULL)
-		return (NULL);
+	current = head;
+	if (current == NULL)
+		exit(98);
 
-	current = *head;
-	*head = current->next;
-	hold = (*head)->next;
-	current->next = NULL;
-	if (*head == NULL)
+	count = 0;
+	while (current != NULL)
 	{
-		*head = current;
-		return (current);
+		hold = current;
+		current = current->next;
+		count++;
+		printf("[%p] %d\n", (void *)hold, hold->n);
+
+		if (hold < current)
+		{
+			printf("-> [%p] %d\n", (void *)current, current->n);
+			break;
+		}
 	}
 
-	while (hold != NULL)
-	{
-		(*head)->next = current;
-		current = *head;
-		*head = hold;
-		hold = (*head)->next;
-	}
-
-	(*head)->next = current;
-	return (*head);
+	return (count);
 }
