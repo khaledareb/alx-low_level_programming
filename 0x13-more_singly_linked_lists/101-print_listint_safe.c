@@ -2,35 +2,40 @@
 #include <stdio.h>
 
 /**
- * print_listint_safe - Print a `listint_t` linked list including mem addresses
- * @head: head of linked list
- * Description: Go through the list only once.
- * Return: number of nodes in list. If fails, exit with status 98.
+ * print_listint_safe - print a linked list only one time
+ * @head: head of LL
+ * Return: counter of nodes & prints an error if the linked list is a circle
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	const listint_t *current;
-	size_t count;
-	const listint_t *hold;
+	const listint_t *slow, *fast, *marker;
+	unsigned int counter = 0, flag = 0;
 
-	current = head;
-	if (current == NULL)
-		exit(98);
-
-	count = 0;
-	while (current != NULL)
+	if (head == NULL)
+		return (0);
+	marker = slow = head;
+	fast = head->next;
+	while (head != NULL)
 	{
-		hold = current;
-		current = current->next;
-		count++;
-		printf("[%p] %d\n", (void *)hold, hold->n);
+		printf("[%p] %d\n", (void *)head, head->n);
+		head = head->next;
+		counter++;
 
-		if (hold < current)
+		if (flag == 0 && fast != NULL && fast->next != NULL && slow != NULL)
 		{
-			printf("-> [%p] %d\n", (void *)current, current->n);
+			if (fast == slow)
+			{
+				flag = 1;
+				slow = marker;
+			}
+			fast = fast->next->next;
+		}
+		if (flag == 1 && slow == head)
+		{
+			printf("-> [%p] %d\n", (void *)head, head->n);
 			break;
 		}
+		slow = slow->next;
 	}
-
-	return (count);
+	return (counter);
 }
